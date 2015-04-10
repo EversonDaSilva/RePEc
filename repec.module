@@ -301,7 +301,7 @@ function repec_fields_association(&$form, &$form_state, $content_type) {
   $series = $form_state['values']['repec_series_name'];
   $series_fields = array();
 
-  $mapping = module_invoke_all('repec_paper_mapping', $node);
+  $mapping = module_invoke_all('repec_paper_mapping', null);
   drupal_alter('repec_paper_mapping', $mapping, $node);
 
   foreach ($mapping as $item) {
@@ -325,6 +325,7 @@ function repec_fields_association(&$form, &$form_state, $content_type) {
     else {
       unset($available_fields_ct[$field_content_type]);
     }
+    $count_series = 0;
 
     if ($field_content_type != FALSE) {
       $form['repec_series']['repec_paper']['field_association']['field_series_' . $count_series] = array(
