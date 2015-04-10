@@ -1,45 +1,54 @@
 <?php
 /**
  * @file
- * Installation actions for Lusk RePEc
+ * Installation actions for Lusk RePEc.
  */
 
 /**
- * Implement hook_schema().
+ * Implements hook_schema().
  */
 function repec_schema() {
 
   $schema['repec_assoc'] = array(
     'fields' => array(
       'content_type' => array(
-        'TYPE' => 'VARCHAR',
-        'NOT NULL' => TRUE,
-        'LENGTH' => 32
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 32,
       ),
       'series_name' => array(
-        'TYPE' => 'VARCHAR',
-        'NOT NULL' => TRUE,
-        'LENGTH' => 32
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => 32,
       ),
       'field_content_type' => array(
-        'TYPE' => 'VARCHAR',
-        'LENGTH' => 32,
-        'NOT NULL' => TRUE,
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
       ),
       'field_series' => array(
-        'TYPE' => 'VARCHAR',
-        'LENGTH' => 32,
-        'NOT NULL' => TRUE,
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
       ),
       'enabled' => array(
-        'TYPE' => 'INT',
-        'UNSIGNED' => TRUE,
+        'type' => 'int',
+        'unsigned' => TRUE,
       ),
     ),
-    'primary key' => array('content_type', 'series_name', 'field_content_type', 'field_series')
+    'primary key' => array(
+      'content_type', 'series_name', 'field_content_type', 'field_series'
+    ),
   );
 
   return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function repec_install() {
+  variable_set('repec_base_path', variable_get('file_public_path', conf_path() . '/files') . '/RePEc');
 }
 
 /**
